@@ -18,12 +18,38 @@ package com.example.androiddevchallenge
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.ui.theme.MyTheme
+
+val data = listOf(
+    Puppy("Fiona", "Barcelona", "10", "Female"),
+    Puppy("Rudolph", "London", "2", "Male"),
+    Puppy("Bella", "Beijing", "4", "Female"),
+    Puppy("Boo", "NYC", "7", "Male"),
+    Puppy("Elsa", "Madrid", "14", "Female"),
+    Puppy("Fiona", "Barcelona", "10", "Female"),
+    Puppy("Rudolph", "London", "2", "Male"),
+    Puppy("Bella", "Beijing", "4", "Female"),
+    Puppy("Boo", "NYC", "7", "Male"),
+    Puppy("Elsa", "Madrid", "14", "Female"),
+    Puppy("Fiona", "Barcelona", "10", "Female"),
+    Puppy("Rudolph", "London", "2", "Male"),
+    Puppy("Bella", "Beijing", "4", "Female"),
+    Puppy("Boo", "NYC", "7", "Male"),
+    Puppy("Elsa", "Madrid", "14", "Female"),
+)
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +65,13 @@ class MainActivity : AppCompatActivity() {
 // Start building your app here!
 @Composable
 fun MyApp() {
-    Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = "puppies_list") {
+        composable("puppies_list") { PuppiesListScreen(data, navController) }
+        composable("details/{puppyIndex}") {
+            val index = it.arguments?.getString("puppyIndex")!!.toInt()
+            PuppyDetailScreen(data[index])
+        }
     }
 }
 
@@ -59,3 +90,10 @@ fun DarkPreview() {
         MyApp()
     }
 }
+
+data class Puppy(
+    val name: String,
+    val location: String,
+    val age: String,
+    val gender: String,
+)
