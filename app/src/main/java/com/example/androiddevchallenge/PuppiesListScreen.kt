@@ -19,14 +19,7 @@ import androidx.navigation.compose.navigate
 @Composable
 fun PuppiesListScreen(puppies: List<Puppy>, navController: NavHostController) {
     Scaffold(topBar = {
-        TopAppBar {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxHeight()
-            ) {
-                Text(text = "Puppies!")
-            }
-        }
+        TopAppBar(title = { Text(text = "Puppies!") })
     }) {
         LazyColumn {
             items(puppies) { puppy ->

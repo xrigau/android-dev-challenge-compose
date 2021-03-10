@@ -14,14 +14,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun PuppyDetailScreen(puppy: Puppy) {
     Scaffold(topBar = {
-        TopAppBar {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxHeight()
-            ) {
-                Text(text = puppy.name)
-            }
-        }
+        TopAppBar(title = { Text(text = puppy.name) })
     }) {
         Row(
             modifier = Modifier
